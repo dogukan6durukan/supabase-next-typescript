@@ -2,7 +2,7 @@
 # Supabase Typescript NextJS
 
 This project includes CRUD
-operations where authenicated users
+operations where authenicated users can
 create, read, update and delete blogs that is provided
 by supbase's authenication system which is RSL.
 Besides used supabase CLI to genereate types of schema for
