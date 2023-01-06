@@ -39,7 +39,7 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res: Response = await fetch("http://localhost:3000/api/blogs");
+  const res: Response = await fetch(`${process.env.BASE_URL}/api/blogs`);
   const results: Blogs[] = await res.json();
 
   return {
