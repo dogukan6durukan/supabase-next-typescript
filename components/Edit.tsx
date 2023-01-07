@@ -2,19 +2,18 @@ import React, { InputHTMLAttributes } from "react";
 import { useRef } from "react";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Database } from "../types/supabase";
-type Blogs = Database["public"]["Tables"]["blogs"]["Update"];
+
+type Codes = Database["public"]["Tables"]["codes"]["Update"];
 
 type props = {
-    blogId : Number
-    imageURL : String | null
-    blogTitle : String | null
-    description : String | null
+    codeId : Number
+    code : String | null
+    codeDescription : String | null
 }
 
 export default function Edit(props : props) {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
 
   const supabase = useSupabaseClient<Database>();
 
@@ -23,23 +22,21 @@ export default function Edit(props : props) {
 
     event.preventDefault();
 
-    const title : Blogs["title"] = titleRef.current!.value;
-    const description : Blogs['description'] = descriptionRef.current!.value;
-    const imageURL : Blogs["imageURL"] = imageRef.current!.value;
+    const title : Codes["title"] = titleRef.current!.value;
+    const description : Codes['description'] = descriptionRef.current!.value;
 
-    if(title !== '' && description !== '' && imageURL !== '') {
+    if(title !== '' && description !== '') {
         
         const newData = {
             title: title,
             description: description,
-            imageURL: imageURL,
         }
 
         try {
             const result = await supabase
-              .from("blogs")
+              .from("codes")
               .update(newData)
-              .eq('id', props.blogId);
+              .eq('id', props.codeId);
       
               console.log(result);
       
@@ -52,36 +49,26 @@ export default function Edit(props : props) {
 
   return (
     <form className="p-5 my-3 rounded bg-slate-200">
-     
-      <div>
-        <label>Image URL</label>
-        <input
-          defaultValue={props.imageURL as string}
-          type="text"
-          ref={imageRef}
-          className="border border-slate-300 rounded block my-3 p-1.5 w-full"
-        />
-      </div>
 
       <div>
-        <label>Blog Title</label>
+        <label>Code</label>
         <input
-          defaultValue={props.blogTitle as string}
+          defaultValue={props.code as string}
           type="text"
           ref={titleRef}
           className="border border-slate-300 rounded block my-3 p-1.5 w-full"
         />
       </div>
       <div>
-        <label>Blog Description</label>
+        <label>Code Description</label>
         <textarea
-          defaultValue={props.description as string } 
+          defaultValue={props.codeDescription as string } 
           ref={descriptionRef}
           className="border border-slate-300 rounded block my-3 p-1.5 h-[120px] w-full"
         />
       </div>
 
-      <button className="p-1.5  bg-black text-white rounded" onClick={submitHandler}>Edit Blog</button>
+      <button className="p-1.5  bg-black text-white rounded" onClick={submitHandler}>Edit Code</button>
     </form>
   );
 }

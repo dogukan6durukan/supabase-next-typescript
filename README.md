@@ -3,7 +3,7 @@
 
 This project includes CRUD
 operations where authenicated users
-create, read, update and delete blogs that is provided
+can create, read, update and delete their codes and descriptions that is provided
 by supbase's authenication system which is RSL.
 Besides used supabase CLI to genereate types of schema for
 my blogs table in supabase and used it for type safe at my operations.  

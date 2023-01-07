@@ -4,8 +4,8 @@ import supabase from "../../../utils/table";
 
 export default async function handler(req : NextApiRequest, res : NextApiResponse  ) {
     try {
-        const getBlogs = await supabase.from('blogs').select('*');
-        res.json(getBlogs.data);
+        const getCodes = await supabase.from('codes').select('*');
+        res.json(getCodes.data);
     } catch(err) {
         console.log(err);
     }

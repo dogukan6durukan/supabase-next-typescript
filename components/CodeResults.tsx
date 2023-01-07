@@ -3,10 +3,11 @@ import Edit from "./Edit";
 import { useState } from "react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { Database } from "../types/supabase";
-type Blogs = Database["public"]["Tables"]["blogs"]["Row"];
+
+type Codes = Database["public"]["Tables"]["codes"]["Row"];
 
 
-export default function BlogResults({ blogs }: any) {
+export default function CodeResults({ codes }: any) {
   const session = useSession();
   const supabase = useSupabaseClient<Database>();
 
@@ -15,7 +16,7 @@ export default function BlogResults({ blogs }: any) {
 
   const deleteHandler = async (num : Number) => {
     try {
-      const result = await supabase.from('blogs').delete().eq('id', num)
+      const result = await supabase.from('codes').delete().eq('id', num)
       console.log(result);
     } catch(err) {
       console.log(err);
@@ -25,9 +26,8 @@ export default function BlogResults({ blogs }: any) {
 
   return (
     <>
-      {blogs.map((b: Blogs) => (
+      {codes.map((b: Codes) => (
         <div key={b.id} className="p-3 my-3 border border-slate-300 rounded">
-          <img src={b.imageURL as string} />
           <p className="mt-2">Title : {b.title}</p>
           <p className="my-2">Author : {b.author}</p>
           <Link
@@ -42,10 +42,9 @@ export default function BlogResults({ blogs }: any) {
               <button onClick={() => deleteHandler(b.id)} className="bg-red-400 p-1 m-2 rounded text-white">Delete</button>
               {editStatus &&
               <Edit 
-              blogId={b.id}
-              imageURL={b.imageURL}
-              blogTitle={b.title}
-              description={b.description}
+              codeId={b.id}
+              code={b.title}
+              codeDescription={b.description}
             />}
             </div>
           )}

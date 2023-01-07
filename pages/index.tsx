@@ -2,9 +2,10 @@ import { Auth, ThemeSupa } from "@supabase/auth-ui-react";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Account from "../components/Account";
-import BlogResults from "../components/BlogResults";
+import CodeResults from "../components/CodeResults";
 import { Database } from "../types/supabase";
-type Blogs = Database["public"]["Tables"]["blogs"]["Row"];
+
+type Codes = Database["public"]["Tables"]["codes"]["Row"];
 
 export default function Home({
   results,
@@ -26,11 +27,11 @@ export default function Home({
 
       {results && (
         <div className="p-3">
-          <h2 className="text-2xl my-3">Blogs : </h2>
+          <h2 className="text-2xl my-3">Codes : </h2>
           {results.length > 0 ? (
-            <BlogResults blogs={results}/>
+            <CodeResults codes={results}/>
           ) : (
-            <p>There is no blog yet...</p>
+            <p>There is no code yet...</p>
           )}
         </div>
       )}
@@ -39,8 +40,8 @@ export default function Home({
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res: Response = await fetch(`${process.env.BASE_URL}/api/blogs`);
-  const results: Blogs[] = await res.json();
+  const res: Response = await fetch(`${process.env.BASE_URL}/api/codes`);
+  const results: Codes[] = await res.json();
 
   return {
     props: {
