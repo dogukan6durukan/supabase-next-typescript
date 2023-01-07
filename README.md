@@ -10,6 +10,6 @@ my codes table in supabase and used it for type safe at my operations.
 Also worked with supabase database for storing blogs
 and used Next JS's Client Side Navigation 
 feature for navigate between 
-blog posts without blocking user experience 
+codes posts without blocking user experience 
 and pre render features provided by Next JS.
 
